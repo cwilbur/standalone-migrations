@@ -6,12 +6,12 @@
 
 Gem::Specification.new do |s|
   s.name = "standalone_migrations".freeze
-  s.version = "7.1.0"
+  s.version = "7.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib".freeze]
   s.authors = ["Todd Huss".freeze, "Michael Grosser".freeze]
-  s.date = "2022-03-16"
+  s.date = "2023-03-01"
   s.email = "thuss@gabrito.com".freeze
   s.extra_rdoc_files = [
     "LICENSE",
