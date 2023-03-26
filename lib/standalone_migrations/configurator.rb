@@ -32,7 +32,7 @@ module StandaloneMigrations
     end
 
     def initialize(options = {})
-      default_schema = ENV['SCHEMA'] || ActiveRecord::Tasks::DatabaseTasks.schema_file(ActiveRecord::Base.schema_format)
+      default_schema = ENV['SCHEMA'] || "db/schema.#{schema_extension}"
       defaults = {
         :config       => "db/config.yml",
         :migrate_dir  => "db/migrate",
@@ -87,8 +87,19 @@ module StandaloneMigrations
       end
     end
 
+    def schema_extension
+      case ActiveRecord.try(:schema_format) || ActiveRecord::Base.schema_format
+      when :ruby
+        "rb"
+      when :sql
+        "sql"
+      else
+        raise "Unexpected schema format"
+      end
+    end
+
     def load_from_file(defaults)
-      return nil unless File.exists? configuration_file
+      return nil unless File.exist? configuration_file
       config = YAML.load( ERB.new(IO.read(configuration_file)).result )
       {
         :config       => config["config"] ? config["config"]["database"] : defaults[:config],
